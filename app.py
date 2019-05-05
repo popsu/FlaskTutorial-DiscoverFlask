@@ -39,7 +39,7 @@ def login():
             error = 'Invalid credentials. Please try again.'
         else:
             session['logged_in'] = True
-            flash('You were just logged in!')
+            flash('You were just logged in!', 'success')
             return redirect(url_for('home'))
 
     return render_template('login.html', error=error)
@@ -50,7 +50,7 @@ def login():
 def logout():
     session.pop('logged_in', None)
 
-    flash('You were just logged out!')
+    flash('You were just logged out!', 'danger')
     return redirect(url_for('welcome'))
 
 
