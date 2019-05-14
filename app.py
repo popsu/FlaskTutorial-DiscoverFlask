@@ -13,7 +13,7 @@ print(os.environ['APP_SETTINGS'])
 # create the sqlalchemy object
 db = SQLAlchemy(app)
 
-from models import BlogPost
+from models import *
 
 
 # login required decorator
