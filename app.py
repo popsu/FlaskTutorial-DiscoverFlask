@@ -1,11 +1,12 @@
 from flask import Flask, render_template, redirect, request, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
 from functools import wraps
 import os
-# import sqlite3
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 
 # config
 app.config.from_object(os.environ['APP_SETTINGS'])
