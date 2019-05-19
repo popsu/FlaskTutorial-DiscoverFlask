@@ -1,7 +1,7 @@
 from app import db
 from models import BlogPost
 
-# db.drop_all()
+db.drop_all()
 
 # create the database and the db tables
 db.create_all()
