@@ -1,6 +1,8 @@
 from project import db
-from models import User
+from project.models import User
 
+# remove all existing rows
+db.session.query(User).delete()
 # insert data
 db.session.add(User('tommi', 'tommi@testdomain.com', 'salasana'))
 db.session.add(User('testuser2', 'test@user2.com', 'salasana'))
