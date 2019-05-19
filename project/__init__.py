@@ -1,0 +1,22 @@
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
+import os
+
+####################
+##### config
+####################
+
+app = Flask(__name__)
+bcrypt = Bcrypt(app)
+app.config.from_object(os.environ['APP_SETTINGS'])
+db = SQLAlchemy(app)
+
+from project.users.views import users_blueprint
+from project.home.views import home_blueprint
+
+app.register_blueprint(users_blueprint)
+app.register_blueprint(home_blueprint)
+
+migrate = Migrate(app=app, db=db)

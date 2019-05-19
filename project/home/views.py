@@ -1,23 +1,15 @@
-from flask import Flask, render_template, redirect, request, url_for, session, flash
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+from flask import flash, redirect, url_for, render_template, session, Blueprint
 from functools import wraps
-import os
+from project import app, db
+from project.models import BlogPost
 
-####################
-##### config
-####################
 
-app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
-db = SQLAlchemy(app)
+home_blueprint = Blueprint(
+    name='home',
+    import_name=__name__,
+    template_folder='templates'
+)
 
-from models import *
-from project.users.views import users_blueprint
-
-app.register_blueprint(users_blueprint)
-
-migrate = Migrate(app=app, db=db)
 
 # login required decorator
 def login_required(f):
@@ -36,17 +28,13 @@ def login_required(f):
 ####################
 
 
-@app.route('/')
+@home_blueprint.route('/')
 @login_required
 def home():
     posts = db.session.query(BlogPost).all()
     return render_template('index.html', posts=posts)
 
 
-@app.route('/welcome')
+@home_blueprint.route('/welcome')
 def welcome():
     return render_template('welcome.html')
-
-
-if __name__ == '__main__':
-    app.run()
