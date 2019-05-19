@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from functools import wraps
 import os
 # import sqlite3
@@ -14,6 +15,8 @@ print(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 
 from models import *
+
+migrate = Migrate(app=app, db=db)
 
 
 # login required decorator
