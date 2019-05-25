@@ -14,6 +14,7 @@ users_blueprint = Blueprint(
     template_folder='templates'
 )
 
+
 # login required decorator
 def login_required(f):
     @wraps(f)
@@ -29,6 +30,7 @@ def login_required(f):
 ####################
 ###### routes
 ####################
+
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
