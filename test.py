@@ -91,6 +91,18 @@ class UsersViewsTests(BaseTestCase):
         response = self.client.get('/logout', follow_redirects=True)
         self.assertTrue(b'Please log in to access this page.' in response.data)
 
+    # Ensure user can register
+    def test_register_works(self):
+        with self.client:
+            response = self.client.post(
+                '/register',
+                data={'username': 'testuser123', 'email': 'test@email.com',
+                      'password': 'password123', 'confirm': 'password123'},
+                follow_redirects=True
+            )
+            self.assertIn(b'Account created. Welcome.', response.data)
+            self.assertTrue(current_user.is_active)
+
 
 if __name__ == '__main__':
     unittest.main()
