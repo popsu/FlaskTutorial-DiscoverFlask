@@ -31,7 +31,7 @@ def login():
             if user and bcrypt.check_password_hash(user.password,
                                                    request.form['password']):
                 login_user(user)
-                flash('You were logged in.')
+                flash('You were logged in.', 'success')
                 return redirect(url_for('home.home'))
             else:
                 error = 'Invalid Credentials. Please try again.'
@@ -43,7 +43,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('You were logged out.')
+    flash('You were logged out.', 'danger')
     return redirect(url_for('home.welcome'))
 
 
@@ -59,7 +59,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        flash('Account created. Welcome.')
+        flash('Account created. Welcome.', 'success')
         return redirect(url_for('home.home'))
     else:
         return render_template('register.html', form=form)

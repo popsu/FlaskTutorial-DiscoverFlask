@@ -29,7 +29,7 @@ def home():
         )
         db.session.add(new_message)
         db.session.commit()
-        flash('New entry was successfully posted. Thanks')
+        flash('New entry was successfully posted. Thanks', 'success')
         return redirect(url_for('home.home'))
     else:
         posts = db.session.query(BlogPost).all()
