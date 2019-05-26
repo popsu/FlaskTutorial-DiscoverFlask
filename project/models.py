@@ -52,4 +52,4 @@ class User(db.Model):
         return self.id
 
     def __repr__(self):
-        return '<name {}'.format(self.name)
+        return '<name - {}>'.format(self.name)
