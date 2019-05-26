@@ -1,0 +1,15 @@
+# Helper macros
+{% macro form_template(form, field) %}
+    <p>
+        {{ form[field](placeholder=field) }}
+        <span class="error">
+            {% if form[field].errors %}
+                {% for error in form[field].errors %}
+                    {{ error }}
+                {% endfor %}
+            {% endif %}
+        </span>
+    </p>
+{% endmacro %}
+
+

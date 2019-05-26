@@ -1,12 +1,28 @@
 {% extends 'base.html' %}
+{% from '_formhelpers.html' import form_template %}
+
 {% block content %}
+
     <h1>Welcome page</h1>
     <p>Click <a href="{{ url_for('users.logout') }}">here</a> to logout.</p>
     <br><br>
+    <!-- post form -->
+    <h3>Add a post!</h3>
+    <br>
+    <form class="form-message" role="form" method="post" action="/">
+        {{ form.csrf_token }}
+        {{ form_template(form, 'title') }}
+        {{ form_template(form, 'description') }}
+        <button class="btn btn-sm btn-success" type="submit">Post</button>
+    </form>
+
+    <!-- All posts -->
+    <h3>Posts:</h3>
     {% for post in posts %}
         <strong>Title:</strong> {{ post.title }} <br>
         <strong>Post:</strong> {{ post.description }} <br>
         <strong>Author:</strong> {{ post.author.name }} <br>
         <br>
     {%  endfor %}
+
 {% endblock content %}

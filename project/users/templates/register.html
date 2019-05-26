@@ -1,30 +1,16 @@
 {% extends 'base.html' %}
+{% from '_formhelpers.html' import form_template %}
 
-# Helper macro
-{% macro macro_form_error(field) %}
-    <p>
-        {{ form[field](placeholder=field) }}
-        <span class="error">
-            {% if form[field].errors %}
-                {% for error in form[field].errors %}
-                    {{ error }}
-                {% endfor %}
-            {% endif %}
-        </span>
-    </p>
-{% endmacro %}
-
-
-{%  block content %}
+{% block content %}
 
     <h1>Please Register</h1>
     <br>
     <form class="form-signin" role="form" method="post" action="">
         {{ form.csrf_token }}
-        {{ macro_form_error('username') }}
-        {{ macro_form_error('email') }}
-        {{ macro_form_error('password') }}
-        {{ macro_form_error('confirm') }}
+        {{ form_template(form, 'username') }}
+        {{ form_template(form, 'email') }}
+        {{ form_template(form, 'password') }}
+        {{ form_template(form, 'confirm') }}
         <button class="btn btn-sm btn-success" type="submit">Register!</button>
     </form>
 
