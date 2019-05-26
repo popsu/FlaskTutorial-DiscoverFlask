@@ -4,6 +4,8 @@ from flask_login import current_user
 from flask_testing import TestCase
 from project.models import BlogPost, User
 import unittest
+import coverage
+import os
 
 
 class BaseTestCase(TestCase):
@@ -15,8 +17,8 @@ class BaseTestCase(TestCase):
 
     def setUp(self) -> None:
         db.create_all()
-        db.session.add(BlogPost('Test post', 'This is a test. Only a test.'))
         db.session.add(User('admin', 'ad@min.com', 'admin'))
+        db.session.add(BlogPost('Test post', 'This is a test. Only a test.', 'admin'))
         # db.session.commit()
 
     def tearDown(self) -> None:
@@ -104,5 +106,21 @@ class UsersViewsTests(BaseTestCase):
             self.assertTrue(current_user.is_active)
 
 
+def cov():
+    """Runs the unit tests with coverage."""
+    cov = coverage.coverage(branch=True, include='project/*')
+    cov.start()
+    tests = unittest.TestLoader().discover('.')
+    unittest.TextTestRunner(verbosity=2).run(tests)
+    cov.stop()
+    cov.save()
+    print('Coverage Summary:')
+    cov.report()
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    covdir = os.path.join(basedir, 'coverage')
+    cov.html_report(directory=covdir)
+    cov.erase()
+
+
 if __name__ == '__main__':
-    unittest.main()
+    cov()
