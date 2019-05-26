@@ -1,5 +1,5 @@
 from flask import flash, redirect, render_template, request, \
-    url_for, Blueprint
+    url_for, Blueprint  # pragma: no cover
 from flask_login import login_user, login_required, logout_user
 from project.users.forms import LoginForm, RegisterForm
 from project.models import User, bcrypt

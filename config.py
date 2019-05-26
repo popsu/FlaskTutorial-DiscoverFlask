@@ -5,7 +5,7 @@ import os
 class BaseConfig(object):
     DEBUG = False
     SECRET_KEY = 'my precious'
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'postgresql:///discover_flask_dev'
 
 
 class TestConfig(BaseConfig):
